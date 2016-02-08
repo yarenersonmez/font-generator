@@ -5,15 +5,15 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width" />
+<meta content="width=1000" name="viewport">
 <title>Font Genereator Script on Image v1.0.1</title>
 <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <link href="css/style.css" type="text/css" crossorigin="anonymous" rel="stylesheet" />
-<link rel="stylesheet" media="screen" type="text/css" href="css/colorpicker.css" />
 
-<script type="text/javascript" src="js/colorpicker.js"></script>
-<script type="text/javascript" src="js/eye.js"></script>
-<script type="text/javascript" src="js/utils.js"></script>
-<script type="text/javascript" src="js/layout.js?ver=1.0.2"></script>
+<link rel="stylesheet" media="screen" type="text/css" href="css/sizefunc.css" />
+
+<script type="text/javascript" src="jscolor.js"></script>
+
 <script>
 $(document).on("keypress", 'form', function (e) {
     var code = e.keyCode || e.which;
@@ -34,9 +34,7 @@ $(document).on("keypress", 'form', function (e) {
 </script>
 
 <style>
-	body{
-		background-color:#284E59;	
-	}
+
 	#urlformu input{ width:250px; line-height:28px; padding:5px; background-color:#F8F8F8; border:1px solid #300; margin-right:15px;}
 	#urlformu input[type=text]{
 		 background-color: #F8F8F8;
@@ -60,10 +58,13 @@ $(document).on("keypress", 'form', function (e) {
 </style>
 </head>
 <body>
-<div id="wrapper" class="width">
+<div id="logo">
+	<h1>Font Generator Script</h1>
+
+</div>
 
 <div id="sayfa">
-<center>
+
 <div id="metinalani">
 <div id="yazi">
 <img class="stencil-main" id="stencil-main" src="images/textarea.png" />
@@ -73,33 +74,41 @@ $(document).on("keypress", 'form', function (e) {
 <form id="veri-formu" action="imagecreator.php" enctype="application/x-www-form-urlencoded" method="get">
 
 Yazı tipini görmek istediğiniz metni girin:</br>
-<input id="yazi" name="text" size="15" type="textarea"  style="border: 1px solid #666666;border-radius: 2px; width: 400px;" name="text" size="15" type="textarea"  onload="this.value=''" onkeyup="document.getElementById('stencil-main').src='imagecreator.php?text='+text.value+'&size='+boyut.value+'&textcolor='+color.value+'&font='+font.value" placeholder="Bir metin yazın..."/> 
+<input id="yazi" name="text" size="15" type="textarea" class="textarea"  name="text" size="15" type="textarea"  onload="this.value=''" onkeyup="document.getElementById('stencil-main').src='imagecreator.php?text='+text.value+'&boyut='+size.value+'&textcolor='+color.value+'&font='+font.value" placeholder="Bir metin yazın..."/> 
 
-</br>
 
-Boyut:
-<div class="styled">
-<select id="boyut" name="textboyut" >
-<option value="20" style=" font-size: 20px;">20</option>
-<option value="25" style=" font-size: 21px;">21</option>
-<option value="22" style=" font-size: 22px;">22</option>
-<option value="23" style=" font-size: 23px;">23</option>
-<option value="24" style=" font-size: 24px;">24</option>
-<option value="25" style=" font-size: 25px;">25</option>
-<option value="26" style=" font-size: 26px;">26</option>
-<option value="50" style=" font-size: 27px;">27</option>
 
-</select>
-</div>
+
+
+       
+
+       <div id="size">
+       Boyut:     </div>
+<div class="col-lg-4">
+      
+
+      <div class="input-group">
+        <div class="input-group-btn">
+          <button class="btn btn-primary" type="button" onclick="size_dec()"><span class="glyphicon glyphicon-minus"></span></button>
+        </div>
+        <input style="width:55px;height: 28px;" type="number" id="boyut" class="form-control" value="40">
+        <div class="input-group-btn" style="
+    float: left;
+">
+          <button class="btn btn-primary" type="button" onclick="size_inc()"><span class="glyphicon glyphicon-plus"></span></button>
+        </div>
+      </div> 
+  
+    </div>
 
 
 	
 	
-</br>
+
 
 Renk:
-
-<input type="text" style="width:60px;" maxlength="6" size="6" id="color" value="00ff00" />
+</br>
+<input class="jscolor" type="text" style="width:60px;" maxlength="6" size="6" id="color" value="f5395e" />
 
 </br></br>
 <input type="button" value="Uygula" onclick="document.getElementById('stencil-main').src='imagecreator.php?text='+text.value+'&size='+boyut.value+'&textcolor='+color.value+'&font='+font.value" />
@@ -108,13 +117,11 @@ Renk:
 <input type="hidden" id="font" value="fonts/comic.ttf"/>
 
 
-
 </br>
 
 </div>
 
 
-</center>
 
 <div id ="fontlist" >
 <img src="images/master_of_break.png">
@@ -147,13 +154,19 @@ Renk:
 
 </form>
 </div>
-<div class="footer-ghost"></div>
+<script type="text/javascript">function size_inc(){
+  var el = $('#boyut');
+  var s = parseInt(el.val());
+  el.val(s+1);
+}
+function size_dec(){
+  var el = $('#boyut');
+  var s = parseInt(el.val());
+  if (s<2)s=2;
+  el.val(s-1);
+}</script>
 
 
-<footer class="width">
-<center>
-    <p>(c)2016 Yaren ERSÖNMEZ | <a href="http://yarenersonmez.com">www.yarenersonmez.com</a> </p>
-</center>
-</footer>
-</div>
+
+
 </body>
